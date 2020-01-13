@@ -10,7 +10,7 @@ if [ "$GIT_REPO" != "" ]; then
     fi
 
     # Install Git
-    microdnf install -y git
+    microdnf install -y git vi
 
     # Install Maven
     cd /opt/jboss 

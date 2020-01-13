@@ -80,11 +80,17 @@ if [[ -z ${BIND:-} ]]; then
     BIND=$(hostname --all-ip-addresses)
 fi
 if [[ -z ${BIND_OPTS:-} ]]; then
+    if [[ -z ${BIND} ]]; then
+        echo "WARNING: Incorrect missing BIND_OPTS. Falling back to 127.0.0.1. You may not be able to access the container."
+        BIND="127.0.0.1"
+    fi
+    
     for BIND_IP in $BIND
     do
         BIND_OPTS+=" -Djboss.bind.address=$BIND_IP -Djboss.bind.address.private=$BIND_IP "
     done
 fi
+
 SYS_PROPS+=" $BIND_OPTS"
 
 #########################################
